@@ -1,0 +1,187 @@
+Part 1 — Data Quality & Governance Audit
+Generated from audit.sql against members.csv and transactions.csv
+
+==============================================================================
+Consolidated findings
+==============================================================================
+check_id severity       lens                                                    issue                                                           metric   value
+   DQ-01        A      MODEL                      status is behaviourally meaningless spread in 90-day activity rate across status values (pct points)     0.7
+   DQ-02        A      MODEL  Corrupted batch: implausible amounts with normal points                                                             rows    15.0
+   DQ-03        A      MODEL           Conflicting member records under one member_id                             member_ids with disagreeing versions   150.0
+   DQ-04        A      MODEL        Replayed transactions (byte-identical duplicates)                                                  transaction_ids  1936.0
+   DQ-05        A      MODEL      Primary-key collisions (same id, different content)                                                  transaction_ids    59.0
+   DQ-06        A      MODEL      Orphan transactions (member_id absent from members)                                                             rows  2988.0
+   DQ-12        A GOVERNANCE              One email shared across multiple member_ids                                                           emails    20.0
+   DQ-13        A GOVERNANCE     PII (email, name, birth_date) unmasked in raw export                              member rows carrying clear-text PII 50160.0
+   DQ-07        B      MODEL           Negative amounts still earning positive points                                                             rows  2012.0
+   DQ-08        B      MODEL                Multiple date formats in transaction_date                                   rows not in ISO timestamp form  3000.0
+   DQ-09        B      MODEL join_date blank / future-dated / after first transaction                                                   defective rows  1234.0
+   DQ-10        B      MODEL          Controlled-vocabulary drift in tier and country                                               non-canonical rows  1302.0
+   DQ-11        B      MODEL NULL points_earned (recoverable — see DQ-06 determinism)                                                             rows  1514.0
+
+==============================================================================
+DQ-01  status vs actual behaviour
+==============================================================================
+  status  members  pct_active_last_90d  avg_days_since_last_tx
+  active    35069                 52.3                   182.4
+ churned     5096                 51.6                   186.7
+inactive     9981                 52.0                   187.1
+
+==============================================================================
+DQ-02  corrupted batch (all rows)
+==============================================================================
+transaction_id member_id transaction_date_raw    amount  points_earned  points_redeemed channel     brand  implied_points_per_dollar
+       TO00000    M03317  2026-02-15 00:00:00 999999.99          119.0              0.0  online PulseMart                   0.000119
+       TO00001    M26558  2026-02-15 00:00:00 999999.99          131.0              0.0  online PulseMart                   0.000131
+       TO00002    M31016  2026-02-15 00:00:00 999999.99          108.0              0.0  online PulseMart                   0.000108
+       TO00003    M18503  2026-02-15 00:00:00 999999.99           83.0              0.0  online PulseMart                   0.000083
+       TO00004    M00225  2026-02-15 00:00:00 999999.99          106.0              0.0  online PulseMart                   0.000106
+       TO00005    M10269  2026-02-15 00:00:00 999999.99          121.0              0.0  online PulseMart                   0.000121
+       TO00006    M10937  2026-02-15 00:00:00  99999.00          147.0              0.0  online PulseMart                   0.001470
+       TO00007    M01304  2026-02-15 00:00:00  99999.00          109.0              0.0  online PulseMart                   0.001090
+       TO00008    M36530  2026-02-15 00:00:00  99999.00          112.0              0.0  online PulseMart                   0.001120
+       TO00009    M03967  2026-02-15 00:00:00  99999.00          148.0              0.0  online PulseMart                   0.001480
+       TO00010    M20079  2026-02-15 00:00:00  99999.00           90.0              0.0  online PulseMart                   0.000900
+       TO00011    M21692  2026-02-15 00:00:00  99999.00          136.0              0.0  online PulseMart                   0.001360
+       TO00012    M20751  2026-02-15 00:00:00  88888.50          142.0              0.0  online PulseHome                   0.001598
+       TO00013    M08857  2026-02-15 00:00:00  75000.00          115.0              0.0  online PulseHome                   0.001533
+       TO00014    M29016  2026-02-15 00:00:00  64000.00          120.0              0.0  online PulseEats                   0.001875
+
+==============================================================================
+DQ-02  transaction_id families
+==============================================================================
+                      id_family   rows  rows_with_orphan_member  rows_with_implausible_amount first_date  last_date
+            T#####   (mainline) 191308                        0                             0 2021-01-05 2026-06-30
+TX#####  (orphan source, DQ-06)   2988                     2988                             0 2025-01-01 2026-06-29
+TO####   (corrupt batch, DQ-02)     15                        0                            15 2026-02-15 2026-02-15
+
+==============================================================================
+DQ-03  member key integrity
+==============================================================================
+ distinct_member_ids  ids_appearing_more_than_once  surplus_rows  identical_replays  conflicting_versions
+               50010                           150         150.0                  0                   150
+
+==============================================================================
+DQ-03  which fields disagree
+==============================================================================
+ conflicting_members  tier_disagrees  status_disagrees  join_date_disagrees  brand_disagrees
+                 150             150               150                    0                0
+
+==============================================================================
+DQ-04/05  transaction key integrity
+==============================================================================
+ distinct_transaction_ids  ids_appearing_more_than_once  surplus_rows  identical_replay_ids  key_collision_ids
+                   192316                          1995        1995.0                  1936                 59
+
+==============================================================================
+DQ-06  orphan transactions
+==============================================================================
+ orphan_tx_rows  orphan_member_ids  pct_of_all_tx min_orphan_id max_orphan_id  orphaned_spend
+           2988               2988           1.54      M9000000      M9002999       192330.99
+
+==============================================================================
+DQ-06  earn rate by brand
+==============================================================================
+    brand  implied_rate  rows_used
+PulseEats      1.750000      63229
+PulseHome      2.000000      63514
+PulseMart      2.300039      64027
+
+==============================================================================
+DQ-06  are points deterministic?
+==============================================================================
+    brand  implied_rate  rows_tested  exact_match  pct_exact  within_1_point  pct_within_1
+PulseEats      1.750000        63229        63162    99.8940           63226       99.9953
+PulseHome      2.000000        63514        62868    98.9829           63514      100.0000
+PulseMart      2.300039        64027        63852    99.7267           64027      100.0000
+
+==============================================================================
+DQ-07  negative amounts: refund or sign error?
+==============================================================================
+ negative_rows  with_positive_points  with_negative_points_clawback  also_redeeming_points  points_match_abs_amount  pct_points_match_abs
+          2012                  2012                              0                    256                     2000                  99.4
+
+==============================================================================
+DQ-07  refund pairing test
+==============================================================================
+ negative_transaction_ids  with_matching_positive_same_member
+                     1995                                   0
+
+==============================================================================
+DQ-08  date formats
+==============================================================================
+                       date_format   rows  unparsed_after_fix             example
+ISO timestamp  YYYY-MM-DD HH:MM:SS 191311                   0 2021-01-05 20:06:40
+         ISO date only  YYYY-MM-DD   1500                   0          2021-03-09
+         Slash          NN/NN/YYYY   1500                   0          01/01/2023
+
+==============================================================================
+DQ-08  slash-date orientation proof
+==============================================================================
+ slash_rows  max_component_1  max_component_2  rows_c1_over_12  rows_c2_over_12
+       1500               12               31                0              950
+
+==============================================================================
+DQ-09  join_date defects
+==============================================================================
+ member_rows  blank_join_date  non_iso_format  join_date_in_future  joined_after_first_tx max_join_date data_anchor_date
+       50160              999               0                   30                    205    2027-03-15       2026-06-30
+
+==============================================================================
+DQ-10  tier variants
+==============================================================================
+raw_value  rows   verdict
+   Bronze 19604 canonical
+   Silver 14808 canonical
+     Gold 10900 canonical
+ Platinum  4048 canonical
+   Bronze   154   VARIANT
+ platinum   139   VARIANT
+     GOLD   135   VARIANT
+     gold   133   VARIANT
+  Silver    123   VARIANT
+    Gold    116   VARIANT
+
+==============================================================================
+DQ-10  country variants
+==============================================================================
+raw_value  rows              verdict
+       IN 19862 canonical ISO-3166-2
+       US 14954 canonical ISO-3166-2
+       SG  5969 canonical ISO-3166-2
+       AE  4856 canonical ISO-3166-2
+       GB  4017 canonical ISO-3166-2
+Singapore   107              VARIANT
+       in   104              VARIANT
+      usa    98              VARIANT
+     U.S.    97              VARIANT
+    India    96              VARIANT
+
+==============================================================================
+DQ-11  null points
+==============================================================================
+ tx_rows  null_points_earned  null_points_redeemed  null_amount  pct_null_points
+  194311                1514                     0            0            0.779
+
+==============================================================================
+DQ-12/13  identity + PII
+==============================================================================
+ emails_shared_across_member_ids  blank_emails  malformed_emails  rows_with_birth_date_in_clear  rows_with_name_and_email_in_clear
+                              20             0                 0                          50160                              50160
+
+==============================================================================
+Context  transaction brand vs member brand
+==============================================================================
+ joined_tx_rows  brand_matches_member  pct_match
+         191323                173512       90.7
+
+==============================================================================
+Checks that PASSED
+==============================================================================
+                           check_name                                                                      result
+              birth_date plausibility                                                          0 implausible ages
+                email well-formedness                                                                 0 malformed
+      brand vocabulary (transactions)                                            3 distinct values, all canonical
+                   channel vocabulary                                            3 distinct values, all canonical
+transaction_id / member_id null check                                                                     0 nulls
+         transaction_type cardinality 1 value(s) — redemptions are embedded in purchase rows, not separate events

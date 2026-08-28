@@ -1,0 +1,11 @@
+raw_value,rows,verdict
+IN,19862,canonical ISO-3166-2
+US,14954,canonical ISO-3166-2
+SG,5969,canonical ISO-3166-2
+AE,4856,canonical ISO-3166-2
+GB,4017,canonical ISO-3166-2
+Singapore,107,VARIANT
+in,104,VARIANT
+usa,98,VARIANT
+U.S.,97,VARIANT
+India,96,VARIANT

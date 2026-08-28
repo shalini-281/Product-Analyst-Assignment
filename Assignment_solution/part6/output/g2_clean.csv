@@ -1,0 +1,4 @@
+brand,txns,total_spend,total_points,points_per_dollar,median_ppd,sd_ppd,generosity_rank
+PulseMart,64562,4237592.95,9746597.0,2.3,2.3,0.009224,1
+PulseHome,64054,4229990.2,8460022.0,2.0,2.0,0.009134,2
+PulseEats,63744,4186193.38,7325938.0,1.75,1.75,0.009396,3

@@ -1,0 +1,5 @@
+step,PulseEats,PulseHome,PulseMart,ranked_most_generous
+A. raw (nothing cleaned),1.7463,1.9483,0.9057,PulseHome
+B. drop 15 sentinel amounts,1.7732,2.0245,2.3321,PulseMart
+C. + repair sign errors,1.7366,1.9837,2.282,PulseMart
+"D. + dedup replays, impute points (final)",1.75,2.0,2.3,PulseMart

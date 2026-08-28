@@ -1,0 +1,5 @@
+segment,members,points_outstanding,pct_of_total
+1. active (0-90d),26572,9795828.0,42.3
+2. slowing (91-365d),17646,9781157.0,42.2
+3. dormant (1-2y),6741,2882971.0,12.5
+4. likely gone (2y+),2025,695346.0,3.0

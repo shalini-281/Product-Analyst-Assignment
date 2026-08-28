@@ -1,0 +1,4 @@
+brand,earn_rate_pts_per_dollar,required_value_multiple,what_marketing_needs_to_be_true
+PulseMart,2.3,1.314,a PulseEats point must be worth >= 1.31x a PulseMart point
+PulseHome,2.0,1.143,a PulseEats point must be worth >= 1.14x a PulseHome point
+PulseEats,1.75,1.0,baseline

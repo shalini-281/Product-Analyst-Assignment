@@ -1,0 +1,13 @@
+dimension,value,members
+brand,PulseHome,13
+brand,PulseEats,4
+brand,PulseMart,3
+country,IN,10
+country,US,6
+country,AE,2
+country,SG,1
+country,GB,1
+tier,Bronze,9
+tier,Silver,5
+tier,Gold,4
+tier,Platinum,2

@@ -1,0 +1,2 @@
+churn_window_days,median_days_between_purchases,median_purchases_last_year,pct_members_whose_normal_gap_exceeds_window,pct_of_churned_who_are_merely_mid_gap
+90,204.0,2.0,82.7,90.8

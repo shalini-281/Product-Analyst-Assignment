@@ -1,0 +1,2 @@
+distinct_transaction_ids,ids_appearing_more_than_once,surplus_rows,identical_replay_ids,key_collision_ids
+192316,1995,1995.0,1936,59

@@ -1,0 +1,11 @@
+raw_value,rows,verdict
+Bronze,19604,canonical
+Silver,14808,canonical
+Gold,10900,canonical
+Platinum,4048,canonical
+ Bronze,154,VARIANT
+platinum,139,VARIANT
+GOLD,135,VARIANT
+gold,133,VARIANT
+Silver ,123,VARIANT
+Gold ,116,VARIANT

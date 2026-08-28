@@ -1,0 +1,4 @@
+cohort,members,avg_active_span_days,avg_annualised_spend,avg_lifetime_spend,avg_days_since_last,avg_overdue_ratio,avg_points_balance
+selected 20,20,411.0,1771.92,1984.74,224.1,2.74,3948.0
+eligible pool,3329,700.0,284.75,456.67,330.9,2.22,849.0
+all profiled members,49996,491.0,279.59,249.27,183.7,1.9,455.0

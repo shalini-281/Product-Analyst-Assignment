@@ -1,0 +1,9 @@
+framing,PulseEats,PulseHome,PulseMart,winner
+F1 ratio of sums  sum(pts)/sum(amt),1.75,2.0,2.3,PulseMart
+F2 mean of per-txn ratios,1.75,2.0,2.3,PulseMart
+F3 median of per-txn ratios,1.75,2.0,2.3,PulseMart
+F4 mean of per-MEMBER ratios,1.75,2.0,2.3,PulseMart
+F5 mean points per transaction,114.927,132.076,150.965,PulseMart
+F6 total points issued,7325938.0,8460022.0,9746597.0,PulseMart
+F7 points per member,320.12,369.562,424.577,PulseMart
+F8 grouped by MEMBER brand (wrong key),1.787,2.002,2.261,PulseMart

@@ -1,0 +1,4 @@
+brand,implied_rate,rows_tested,exact_match,pct_exact,within_1_point,pct_within_1
+PulseEats,1.75,63229,63162,99.894,63226,99.9953
+PulseHome,2.0,63514,62868,98.9829,63514,100.0
+PulseMart,2.3000387646982814,64027,63852,99.7267,64027,100.0

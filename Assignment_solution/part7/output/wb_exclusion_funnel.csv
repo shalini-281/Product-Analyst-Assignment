@@ -1,0 +1,12 @@
+step,members_remaining
+0. members with any transaction,52984
+1. minus orphans with no profile (DQ-06),49996
+2. minus fewer than 4 purchases,27078
+3. minus active span under 365d,19860
+4. minus not yet overdue (ratio < 1.5),4780
+5. minus likely unrecoverable (ratio > 4),4093
+6. minus gone > 540 days (absolute cap),3340
+7. minus silent < 60 days (too early),3340
+8. minus conflicted profile (DQ-03),3331
+9. minus shared email (DQ-12),3329
+10. FINAL eligible pool,3329

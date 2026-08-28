@@ -1,0 +1,88 @@
+Part 6 — Brand generosity
+
+==============================================================================
+1. NAIVE -- raw data, sum(points)/sum(amount)
+==============================================================================
+    brand  txns  total_spend  total_points  points_per_dollar  generosity_rank
+PulseHome 64692   4347981.09     8471133.0             1.9483                1
+PulseEats 64378   4204700.48     7342510.0             1.7463                2
+PulseMart 65241  10790079.73     9773045.0             0.9057                3
+
+==============================================================================
+2. CLEANED
+==============================================================================
+    brand  txns  total_spend  total_points  points_per_dollar  median_ppd   sd_ppd  generosity_rank
+PulseMart 64562   4237592.95     9746597.0               2.30        2.30 0.009224                1
+PulseHome 64054   4229990.20     8460022.0               2.00        2.00 0.009134                2
+PulseEats 63744   4186193.38     7325938.0               1.75        1.75 0.009396                3
+
+==============================================================================
+3. CONTAMINATION -- ranking at each cleaning step
+==============================================================================
+                                     step  PulseEats  PulseHome  PulseMart ranked_most_generous
+                 A. raw (nothing cleaned)     1.7463     1.9483     0.9057            PulseHome
+              B. drop 15 sentinel amounts     1.7732     2.0245     2.3321            PulseMart
+                  C. + repair sign errors     1.7366     1.9837     2.2820            PulseMart
+D. + dedup replays, impute points (final)     1.7500     2.0000     2.3000            PulseMart
+
+==============================================================================
+4. The 15 sentinel rows and the phantom dollars they add
+==============================================================================
+    brand  sentinel_rows  phantom_dollars  pct_inflation_of_denominator
+PulseMart             12       6599993.94                         157.5
+PulseHome              2        163888.50                           3.9
+PulseEats              1         64000.00                           1.5
+
+==============================================================================
+5. FRAMINGS -- does any of them make PulseEats the winner?
+==============================================================================
+                               framing   PulseEats   PulseHome   PulseMart    winner
+   F1 ratio of sums  sum(pts)/sum(amt)       1.750       2.000       2.300 PulseMart
+             F2 mean of per-txn ratios       1.750       2.000       2.300 PulseMart
+           F3 median of per-txn ratios       1.750       2.000       2.300 PulseMart
+          F4 mean of per-MEMBER ratios       1.750       2.000       2.300 PulseMart
+        F5 mean points per transaction     114.927     132.076     150.965 PulseMart
+                F6 total points issued 7325938.000 8460022.000 9746597.000 PulseMart
+                  F7 points per member     320.120     369.562     424.577 PulseMart
+F8 grouped by MEMBER brand (wrong key)       1.787       2.002       2.261 PulseMart
+
+==============================================================================
+6. Confound: earn rate by tier
+==============================================================================
+    tier  PulseEats  PulseHome  PulseMart
+  Bronze       1.75     2.0000     2.3000
+    Gold       1.75     2.0001     2.3000
+Platinum       1.75     2.0000     2.3001
+  Silver       1.75     2.0000     2.3000
+
+==============================================================================
+7. Confound: basket size
+==============================================================================
+    brand  txns  avg_basket  median_basket
+PulseEats 63744       65.67          52.89
+PulseHome 64054       66.04          53.21
+PulseMart 64562       65.64          52.73
+
+==============================================================================
+8. Point utility proxy -- redemption behaviour
+==============================================================================
+    brand  points_issued  points_redeemed  pct_points_redeemed  pct_txns_with_redemption  avg_redemption_size
+PulseEats      7325938.0         718565.0                 9.81                     13.70                 82.3
+PulseHome      8460022.0         796747.0                 9.42                     13.91                 89.4
+PulseMart      9746597.0         863955.0                 8.86                     13.87                 96.5
+
+==============================================================================
+9. BREAK-EVEN -- what must be true for marketing to be right?
+==============================================================================
+    brand  earn_rate_pts_per_dollar  required_value_multiple                            what_marketing_needs_to_be_true
+PulseMart                      2.30                    1.314 a PulseEats point must be worth >= 1.31x a PulseMart point
+PulseHome                      2.00                    1.143 a PulseEats point must be worth >= 1.14x a PulseHome point
+PulseEats                      1.75                    1.000                                                   baseline
+
+==============================================================================
+10. Weak signal on relative point value
+==============================================================================
+    brand  avg_points_per_redemption  implied_point_value_vs_eats
+PulseEats                       82.3                        1.000
+PulseHome                       89.4                        1.086
+PulseMart                       96.5                        1.172

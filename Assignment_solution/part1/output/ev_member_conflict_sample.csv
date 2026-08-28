@@ -1,0 +1,13 @@
+member_id,tier,status,brand,join_date_raw,country
+M08766, Bronze,inactive,PulseMart,2025-04-03,SG
+M08766,Gold,active,PulseMart,2025-04-03,SG
+M09081,Bronze,active,PulseEats,2025-07-06,IN
+M09081,Silver,churned,PulseEats,2025-07-06,IN
+M12627,Gold,active,PulseEats,2025-07-09,US
+M12627,Silver,inactive,PulseEats,2025-07-09,US
+M15248,Gold,active,PulseMart,2025-12-27,US
+M15248,Platinum,churned,PulseMart,2025-12-27,US
+M16880,Bronze,inactive,PulseHome,2025-10-16,SG
+M16880,Silver,active,PulseHome,2025-10-16,SG
+M18739,GOLD,active,PulseHome,2022-08-06,IN
+M18739,Gold,churned,PulseHome,2022-08-06,IN

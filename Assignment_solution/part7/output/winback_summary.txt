@@ -1,0 +1,73 @@
+Part 7 — Win-back list
+
+====================================================================================================
+Exclusion funnel
+====================================================================================================
+                                     step  members_remaining
+          0. members with any transaction              52984
+ 1. minus orphans with no profile (DQ-06)              49996
+          2. minus fewer than 4 purchases              27078
+          3. minus active span under 365d              19860
+   4. minus not yet overdue (ratio < 1.5)               4780
+5. minus likely unrecoverable (ratio > 4)               4093
+  6. minus gone > 540 days (absolute cap)               3340
+    7. minus silent < 60 days (too early)               3340
+      8. minus conflicted profile (DQ-03)               3331
+            9. minus shared email (DQ-12)               3329
+                  10. FINAL eligible pool               3329
+
+====================================================================================================
+THE LIST -- 20 members
+====================================================================================================
+ rank member_id     tier main_brand country  n_txns  active_span_days  lifetime_spend  annualised_spend  avg_basket  first_txn   last_txn  days_since_last  avg_gap_days  overdue_ratio  points_balance  redemptions  channels_used  brands_used  winback_score
+    1    M00219   Bronze  PulseHome      IN       6               391         2267.27           2116.51      377.88 2024-10-31 2025-11-26              216          78.2           2.76          4535.0            0              2            1        1841.36
+    2    M19556     Gold  PulseEats      IN       6               365         2166.25           2166.25      361.04 2024-10-14 2025-10-14              259          73.0           3.55          3792.0            0              3            1        1807.01
+    3    M09531     Gold  PulseHome      IN       5               388         1985.53           1867.83      397.11 2024-12-06 2025-12-29              183          97.0           1.89          3971.0            0              3            1        1676.38
+    4    M07084   Silver  PulseHome      IN       6               380         1889.60           1815.01      314.93 2024-11-24 2025-12-09              203          76.0           2.67          3779.0            0              3            1        1598.72
+    5    M17011   Bronze  PulseMart      IN       6               435         2171.01           1821.65      361.84 2024-09-10 2025-11-19              223          87.0           2.56          4993.0            0              3            1        1574.21
+    6    M26749   Bronze  PulseHome      AE       6               386         2010.49           1901.11      335.08 2024-09-10 2025-10-01              272          77.2           3.52          4020.0            0              2            1        1565.25
+    7    M25267     Gold  PulseHome      IN       6               404         1906.31           1722.29      317.72 2024-11-19 2025-12-28              184          80.8           2.28          3813.0            0              3            1        1544.32
+    8    M12828   Silver  PulseHome      US       6               366         1852.27           1847.21      308.71 2024-10-12 2025-10-13              260          73.2           3.55          3705.0            0              3            1        1539.34
+    9    M33544 Platinum  PulseHome      US       6               394         1913.24           1772.42      318.87 2024-10-19 2025-11-17              225          78.8           2.86          3826.0            0              3            1        1528.71
+   10    M11297   Bronze  PulseHome      US       6               377         1810.72           1753.08      301.79 2024-11-16 2025-11-28              214          75.4           2.84          3622.0            0              3            1        1528.10
+   11    M02751   Bronze  PulseHome      US       6               434         2168.40           1823.65      361.40 2024-08-10 2025-10-18              255          86.8           2.94          4338.0            0              2            1        1527.31
+   12    M03240   Silver  PulseHome      GB       6               412         1930.83           1710.57      321.81 2024-11-05 2025-12-22              190          82.4           2.31          3863.0            0              3            1        1525.26
+   13    M37512   Silver  PulseEats      SG       6               487         2261.38           1694.87      376.90 2024-08-02 2025-12-02              210          97.4           2.16          3957.0            0              3            1        1483.01
+   14    M21752   Silver  PulseHome      US       6               464         2058.59           1619.36      343.10 2024-09-11 2025-12-19              193          92.8           2.08          4118.0            0              3            1        1439.88
+   15    M20624   Bronze  PulseHome      IN       6               392         1815.94           1690.86      302.66 2024-10-01 2025-10-28              245          78.4           3.12          3632.0            0              3            1        1430.19
+   16    M00214 Platinum  PulseMart      US       6               368         1637.46           1624.11      272.91 2024-11-22 2025-11-25              217          73.6           2.95          3766.0            0              3            1        1411.62
+   17    M04598   Bronze  PulseEats      IN       6               438         1896.64           1580.53      316.11 2024-10-01 2025-12-13              199          87.6           2.27          3318.0            0              3            1        1397.45
+   18    M23129   Bronze  PulseMart      AE       6               417         1853.10           1622.02      308.85 2024-09-23 2025-11-14              228          83.4           2.73          4261.0            0              3            1        1394.94
+   19    M38959   Bronze  PulseHome      IN       6               407         1907.66           1710.80      317.94 2024-07-31 2025-09-11              292          81.4           3.59          3816.0            0              3            1        1380.05
+   20    M16790     Gold  PulseEats      IN       6               507         2192.18           1578.20      365.36 2024-07-10 2025-11-29              213         101.4           2.10          3835.0            0              3            1        1376.98
+
+====================================================================================================
+List composition
+====================================================================================================
+dimension     value  members
+    brand PulseHome       13
+    brand PulseEats        4
+    brand PulseMart        3
+  country        IN       10
+  country        US        6
+  country        AE        2
+  country        SG        1
+  country        GB        1
+     tier    Bronze        9
+     tier    Silver        5
+     tier      Gold        4
+     tier  Platinum        2
+
+====================================================================================================
+Selected vs eligible pool vs whole base
+====================================================================================================
+              cohort  members  avg_active_span_days  avg_annualised_spend  avg_lifetime_spend  avg_days_since_last  avg_overdue_ratio  avg_points_balance
+         selected 20       20                 411.0               1771.92             1984.74                224.1               2.74              3948.0
+       eligible pool     3329                 700.0                284.75              456.67                330.9               2.22               849.0
+all profiled members    49996                 491.0                279.59              249.27                183.7               1.90               455.0
+
+====================================================================================================
+Personal-rhythm rule vs fixed 90-day rule
+====================================================================================================
+ naive_rule_flags_members  rhythm_rule_eligible  overlap_in_top_20  naive_pick_avg_overdue_ratio  our_pick_avg_overdue_ratio
+                    23911                  3329                  9                          3.46                        2.74

@@ -1,0 +1,72 @@
+Part 2 — Member-level churn feature table
+
+==============================================================================
+Cleaning audit (common/clean.sql)
+==============================================================================
+                           metric  value
+                   tx rows in raw 194311
+       tx rows after replay dedup 192375
+              replay rows removed   1936
+             sign errors repaired   1996
+        corrupt amounts recovered     15
+              null points imputed   1497
+            orphan tx quarantined   2988
+               member rows in raw  50160
+members after conflict resolution  50010
+       members flagged conflicted    150
+
+==============================================================================
+Earn rate per brand
+==============================================================================
+    brand  earn_rate  rows_used
+PulseHome       2.00      62886
+PulseMart       2.30      63373
+PulseEats       1.75      62608
+
+==============================================================================
+LEAKAGE CHECK
+==============================================================================
+max_feature_txn_date cutoff_date min_outcome_txn_date                                                      verdict
+          2026-04-01  2026-04-01           2026-04-02 PASS -- no transaction-derived feature reads past the cutoff
+
+==============================================================================
+Label balance
+==============================================================================
+ members_scored  churned  churn_rate_pct
+          31690  18643.0           58.83
+
+==============================================================================
+Churn rate by recency band (label sanity)
+==============================================================================
+recency_band  members  churn_rate_pct
+    1. 0-30d     6869            45.5
+   2. 31-90d     8514            55.0
+  3. 91-180d     7936            64.2
+ 4. 181-365d     8371            68.6
+
+==============================================================================
+Churn rate by tier
+==============================================================================
+    tier  members  churn_rate_pct
+  Bronze    12496            58.6
+  Silver     9468            58.9
+    Gold     7073            58.7
+Platinum     2653            60.0
+
+==============================================================================
+Features with NULLs (by design)
+==============================================================================
+                     feature  nulls  pct
+r_days_since_last_redemption  17339 54.7
+          rd_redemption_rate      0  0.0
+               p_tenure_days    816  2.6
+      f_avg_days_between_txn   2114  6.7
+                       p_age      0  0.0
+
+==============================================================================
+IS A 90-DAY WINDOW APPROPRIATE HERE?
+==============================================================================
+ churn_window_days  median_days_between_purchases  median_purchases_last_year  pct_members_whose_normal_gap_exceeds_window  pct_of_churned_who_are_merely_mid_gap
+                90                          204.0                         2.0                                         82.7                                   90.8
+
+member_features.csv: 31,690 members x 40 columns

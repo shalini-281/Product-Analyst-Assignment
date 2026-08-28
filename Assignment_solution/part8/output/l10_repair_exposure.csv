@@ -1,0 +1,5 @@
+source,points,pct_of_issued
+points imputed where source was NULL (DQ-11),200830.0,0.787
+points on sign-error rows (DQ-07),265750.0,1.041
+points on recovered-amount rows (DQ-02),1787.0,0.007
+points removed with replayed rows (DQ-04),253174.0,0.992

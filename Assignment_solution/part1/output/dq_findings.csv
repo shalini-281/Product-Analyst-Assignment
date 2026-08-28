@@ -1,0 +1,14 @@
+check_id,severity,lens,issue,metric,value
+DQ-01,A,MODEL,status is behaviourally meaningless,spread in 90-day activity rate across status values (pct points),0.7
+DQ-02,A,MODEL,Corrupted batch: implausible amounts with normal points,rows,15.0
+DQ-03,A,MODEL,Conflicting member records under one member_id,member_ids with disagreeing versions,150.0
+DQ-04,A,MODEL,Replayed transactions (byte-identical duplicates),transaction_ids,1936.0
+DQ-05,A,MODEL,"Primary-key collisions (same id, different content)",transaction_ids,59.0
+DQ-06,A,MODEL,Orphan transactions (member_id absent from members),rows,2988.0
+DQ-12,A,GOVERNANCE,One email shared across multiple member_ids,emails,20.0
+DQ-13,A,GOVERNANCE,"PII (email, name, birth_date) unmasked in raw export",member rows carrying clear-text PII,50160.0
+DQ-07,B,MODEL,Negative amounts still earning positive points,rows,2012.0
+DQ-08,B,MODEL,Multiple date formats in transaction_date,rows not in ISO timestamp form,3000.0
+DQ-09,B,MODEL,join_date blank / future-dated / after first transaction,defective rows,1234.0
+DQ-10,B,MODEL,Controlled-vocabulary drift in tier and country,non-canonical rows,1302.0
+DQ-11,B,MODEL,NULL points_earned (recoverable — see DQ-06 determinism),rows,1514.0

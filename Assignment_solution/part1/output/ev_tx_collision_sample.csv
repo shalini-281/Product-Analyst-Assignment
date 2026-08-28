@@ -1,0 +1,9 @@
+transaction_id,member_id,transaction_date_raw,amount,points_earned,channel,brand
+T007337,M01669,2026-03-24,21.7,43.0,app,PulseHome
+T007337,M01669,2026-03-24 20:17:54,21.7,43.0,app,PulseHome
+T075572,M17032,2026-03-26,158.0,276.0,in_store,PulseEats
+T075572,M17032,2026-03-26 20:21:18,158.0,276.0,in_store,PulseEats
+T088123,M19885,2025-09-13 07:43:27,35.93,83.0,in_store,PulseMart
+T088123,M19885,09/13/2025,35.93,83.0,in_store,PulseMart
+T144325,M32619,02/16/2023,108.93,218.0,online,PulseHome
+T144325,M32619,2023-02-16 16:54:12,108.93,218.0,online,PulseHome

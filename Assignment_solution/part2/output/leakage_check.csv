@@ -1,0 +1,2 @@
+max_feature_txn_date,cutoff_date,min_outcome_txn_date,verdict
+2026-04-01,2026-04-01,2026-04-02,PASS -- no transaction-derived feature reads past the cutoff

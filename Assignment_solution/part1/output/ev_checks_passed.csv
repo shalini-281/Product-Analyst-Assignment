@@ -1,0 +1,7 @@
+check_name,result
+birth_date plausibility,0 implausible ages
+email well-formedness,0 malformed
+brand vocabulary (transactions),"3 distinct values, all canonical"
+channel vocabulary,"3 distinct values, all canonical"
+transaction_id / member_id null check,0 nulls
+transaction_type cardinality,"1 value(s) — redemptions are embedded in purchase rows, not separate events"

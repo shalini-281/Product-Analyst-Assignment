@@ -1,0 +1,4 @@
+status,members,pct_active_last_90d,avg_days_since_last_tx
+active,35069,52.3,182.4
+churned,5096,51.6,186.7
+inactive,9981,52.0,187.1

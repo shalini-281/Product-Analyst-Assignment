@@ -1,0 +1,4 @@
+date_format,rows,unparsed_after_fix,example
+ISO timestamp  YYYY-MM-DD HH:MM:SS,191311,0,2021-01-05 20:06:40
+Slash          NN/NN/YYYY,1500,0,01/01/2023
+ISO date only  YYYY-MM-DD,1500,0,2021-03-09

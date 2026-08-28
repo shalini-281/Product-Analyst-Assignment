@@ -1,0 +1,11 @@
+metric,value
+tx rows in raw,194311
+tx rows after replay dedup,192375
+replay rows removed,1936
+sign errors repaired,1996
+corrupt amounts recovered,15
+null points imputed,1497
+orphan tx quarantined,2988
+member rows in raw,50160
+members after conflict resolution,50010
+members flagged conflicted,150
